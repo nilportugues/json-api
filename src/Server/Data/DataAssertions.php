@@ -9,7 +9,7 @@
  */
 namespace NilPortugues\Api\JsonApi\Server\Data;
 
-use NilPortugues\Api\JsonApi\JsonApiSerializer;
+use NilPortugues\Serializer\Serializer;
 use NilPortugues\Api\JsonApi\JsonApiTransformer;
 use NilPortugues\Api\JsonApi\Server\Errors\ErrorBag;
 use NilPortugues\Api\JsonApi\Server\Errors\InvalidAttributeError;
@@ -25,11 +25,11 @@ class DataAssertions
 {
     /**
      * @param array             $data
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      * @param string            $className
      * @param ErrorBag          $errorBag
      */
-    public static function assert($data, JsonApiSerializer $serializer, $className, ErrorBag $errorBag)
+    public static function assert($data, Serializer $serializer, $className, ErrorBag $errorBag)
     {
         self::assertItIsArray($data, $errorBag);
         self::assertItHasTypeMember($data, $errorBag);
@@ -68,7 +68,7 @@ class DataAssertions
 
     /**
      * @param array             $data
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      * @param                   $className
      * @param ErrorBag          $errorBag
      *
@@ -76,7 +76,7 @@ class DataAssertions
      */
     protected static function assertItTypeMemberIsExpectedValue(
         array $data,
-        JsonApiSerializer $serializer,
+        Serializer $serializer,
         $className,
         ErrorBag $errorBag
     ) {
@@ -104,12 +104,12 @@ class DataAssertions
 
     /**
      * @param array             $data
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      * @param ErrorBag          $errorBag
      *
      * @throws DataException
      */
-    protected static function assertAttributesExists(array $data, JsonApiSerializer $serializer, ErrorBag $errorBag)
+    protected static function assertAttributesExists(array $data, Serializer $serializer, ErrorBag $errorBag)
     {
         $inputAttributes = array_keys($data[JsonApiTransformer::ATTRIBUTES_KEY]);
 

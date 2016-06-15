@@ -10,7 +10,7 @@
 namespace NilPortugues\Api\JsonApi\Server\Actions;
 
 use Exception;
-use NilPortugues\Api\JsonApi\JsonApiSerializer;
+use NilPortugues\Serializer\Serializer;
 use NilPortugues\Api\JsonApi\Server\Actions\Traits\ResponseTrait;
 use NilPortugues\Api\JsonApi\Server\Data\DataException;
 use NilPortugues\Api\JsonApi\Server\Data\DataObject;
@@ -31,14 +31,14 @@ class PatchResource
     protected $errorBag;
 
     /**
-     * @var JsonApiSerializer
+     * @var Serializer
      */
     protected $serializer;
 
     /**
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      */
-    public function __construct(JsonApiSerializer $serializer)
+    public function __construct(Serializer $serializer)
     {
         $this->serializer = $serializer;
         $this->errorBag = new ErrorBag();

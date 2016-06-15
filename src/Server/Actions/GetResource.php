@@ -13,7 +13,7 @@ use Exception;
 use NilPortugues\Api\JsonApi\Http\Request\Parameters\Fields;
 use NilPortugues\Api\JsonApi\Http\Request\Parameters\Included;
 use NilPortugues\Api\JsonApi\Http\Request\Parameters\Sorting;
-use NilPortugues\Api\JsonApi\JsonApiSerializer;
+use NilPortugues\Serializer\Serializer;
 use NilPortugues\Api\JsonApi\Server\Actions\Traits\RequestTrait;
 use NilPortugues\Api\JsonApi\Server\Actions\Traits\ResponseTrait;
 use NilPortugues\Api\JsonApi\Server\Errors\Error;
@@ -36,7 +36,7 @@ class GetResource
     protected $errorBag;
 
     /**
-     * @var JsonApiSerializer
+     * @var Serializer
      */
     protected $serializer;
 
@@ -51,12 +51,12 @@ class GetResource
     protected $included;
 
     /**
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      * @param Fields            $fields
      * @param Included          $included
      */
     public function __construct(
-        JsonApiSerializer $serializer,
+        Serializer $serializer,
         Fields $fields,
         Included $included
     ) {
