@@ -90,7 +90,8 @@ class DataObject
 
         $diff = [];
         if (null !== $mapping) {
-            $properties = str_replace(
+            $required = $mapping->getRequiredProperties();
+            $properties = !empty($required) ? $required : str_replace(
                 array_keys($mapping->getAliasedProperties()),
                 array_values($mapping->getAliasedProperties()),
                 $mapping->getProperties()
