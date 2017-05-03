@@ -13,7 +13,7 @@ namespace NilPortugues\Api\JsonApi\Server\Query;
 use NilPortugues\Api\JsonApi\Http\Request\Parameters\Fields;
 use NilPortugues\Api\JsonApi\Http\Request\Parameters\Included;
 use NilPortugues\Api\JsonApi\Http\Request\Parameters\Sorting;
-use NilPortugues\Api\JsonApi\JsonApiSerializer;
+use NilPortugues\Serializer\Serializer;
 use NilPortugues\Api\JsonApi\Server\Errors\ErrorBag;
 use NilPortugues\Api\JsonApi\Server\Errors\InvalidParameterError;
 use NilPortugues\Api\JsonApi\Server\Errors\InvalidParameterMemberError;
@@ -25,7 +25,7 @@ use NilPortugues\Api\JsonApi\Server\Errors\InvalidSortError;
 class QueryObject
 {
     /**
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      * @param Fields            $fields
      * @param Included          $included
      * @param Sorting           $sort
@@ -35,7 +35,7 @@ class QueryObject
      * @throws QueryException
      */
     public static function assert(
-        JsonApiSerializer $serializer,
+        Serializer $serializer,
         Fields $fields,
         Included $included,
         Sorting $sort,
@@ -55,13 +55,13 @@ class QueryObject
     }
 
     /**
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      * @param Fields            $fields
      * @param                   $paramName
      * @param ErrorBag          $errorBag
      */
     protected static function validateQueryParamsTypes(
-        JsonApiSerializer $serializer,
+        Serializer $serializer,
         Fields $fields,
         $paramName,
         ErrorBag $errorBag
@@ -95,13 +95,13 @@ class QueryObject
     }
 
     /**
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      * @param Included          $included
      * @param string            $paramName
      * @param ErrorBag          $errorBag
      */
     protected static function validateIncludeParams(
-        JsonApiSerializer $serializer,
+        Serializer $serializer,
         Included $included,
         $paramName,
         ErrorBag $errorBag
@@ -125,13 +125,13 @@ class QueryObject
     }
 
     /**
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      * @param string            $className
      * @param Sorting           $sorting
      * @param ErrorBag          $errorBag
      */
     protected static function validateSortParams(
-        JsonApiSerializer $serializer,
+        Serializer $serializer,
         $className,
         Sorting $sorting,
         ErrorBag $errorBag

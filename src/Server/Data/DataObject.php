@@ -10,7 +10,7 @@
 
 namespace NilPortugues\Api\JsonApi\Server\Data;
 
-use NilPortugues\Api\JsonApi\JsonApiSerializer;
+use NilPortugues\Serializer\Serializer;
 use NilPortugues\Api\JsonApi\JsonApiTransformer;
 use NilPortugues\Api\JsonApi\Server\Errors\ErrorBag;
 use NilPortugues\Api\JsonApi\Server\Errors\InvalidAttributeError;
@@ -26,24 +26,24 @@ class DataObject
 {
     /**
      * @param array             $data
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      * @param string            $className
      * @param ErrorBag          $errorBag
      */
-    public static function assertPatch($data, JsonApiSerializer $serializer, $className, ErrorBag $errorBag)
+    public static function assertPatch($data, Serializer $serializer, $className, ErrorBag $errorBag)
     {
         DataAssertions::assert($data, $serializer, $className, $errorBag);
     }
 
     /**
      * @param array             $data
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      * @param string            $className
      * @param ErrorBag          $errorBag
      *
      * @throws DataException
      */
-    public static function assertPost($data, JsonApiSerializer $serializer, $className, ErrorBag $errorBag)
+    public static function assertPost($data, Serializer $serializer, $className, ErrorBag $errorBag)
     {
         try {
             DataAssertions::assert($data, $serializer, $className, $errorBag);
@@ -65,26 +65,26 @@ class DataObject
 
     /**
      * @param array             $data
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      * @param string            $className
      * @param ErrorBag          $errorBag
      *
      * @throws DataException
      */
-    public static function assertPut($data, JsonApiSerializer $serializer, $className, ErrorBag $errorBag)
+    public static function assertPut($data, Serializer $serializer, $className, ErrorBag $errorBag)
     {
         self::assertPost($data, $serializer, $className, $errorBag);
     }
 
     /**
      * @param array             $data
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      *
      * @return array
      */
-    protected static function missingCreationAttributes(array $data, JsonApiSerializer $serializer)
+    protected static function missingCreationAttributes(array $data, Serializer $serializer)
     {
-        $inputAttributes = array_keys($data[JsonApiTransformer::ATTRIBUTES_KEY]);
+        $inputAttributes = array_keys($data[ApiTransformer::ATTRIBUTES_KEY]);
 
         $mapping = $serializer->getTransformer()->getMappingByAlias($data[JsonApiTransformer::TYPE_KEY]);
 
@@ -106,11 +106,11 @@ class DataObject
 
     /**
      * @param array             $data
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      *
      * @return array
      */
-    public static function getAttributes(array $data, JsonApiSerializer $serializer)
+    public static function getAttributes(array $data, Serializer $serializer)
     {
         $mapping = $serializer->getTransformer()->getMappingByAlias($data[JsonApiTransformer::TYPE_KEY]);
         $aliases = $mapping->getAliasedProperties();
@@ -125,12 +125,12 @@ class DataObject
 
     /**
      * @param array             $data
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      * @param ErrorBag          $errorBag
      *
      * @throws DataException
      */
-    protected static function assertRelationshipData(array $data, JsonApiSerializer $serializer, ErrorBag $errorBag)
+    protected static function assertRelationshipData(array $data, Serializer $serializer, ErrorBag $errorBag)
     {
         if (!empty($data[JsonApiTransformer::RELATIONSHIPS_KEY])) {
             foreach ($data[JsonApiTransformer::RELATIONSHIPS_KEY] as $relationshipData) {
@@ -157,10 +157,10 @@ class DataObject
 
     /**
      * @param array             $relationshipData
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      * @param ErrorBag          $errorBag
      */
-    protected static function relationshipDataAssert($relationshipData, JsonApiSerializer $serializer, ErrorBag $errorBag)
+    protected static function relationshipDataAssert($relationshipData, Serializer $serializer, ErrorBag $errorBag)
     {
         //Has type member.
         if (empty($relationshipData[JsonApiTransformer::TYPE_KEY]) || !is_string(

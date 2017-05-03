@@ -16,7 +16,7 @@ use NilPortugues\Api\JsonApi\Http\Request\Parameters\Fields;
 use NilPortugues\Api\JsonApi\Http\Request\Parameters\Included;
 use NilPortugues\Api\JsonApi\Http\Request\Parameters\Page;
 use NilPortugues\Api\JsonApi\Http\Request\Parameters\Sorting;
-use NilPortugues\Api\JsonApi\JsonApiSerializer;
+use NilPortugues\Serializer\Serializer;
 use NilPortugues\Api\JsonApi\Server\Actions\Traits\RequestTrait;
 use NilPortugues\Api\JsonApi\Server\Actions\Traits\ResponseTrait;
 use NilPortugues\Api\JsonApi\Server\Errors\Error;
@@ -61,12 +61,12 @@ class ListResource
     protected $filters;
 
     /**
-     * @var JsonApiSerializer
+     * @var Serializer
      */
     protected $serializer;
 
     /**
-     * @param JsonApiSerializer $serializer
+     * @param Serializer $serializer
      * @param Page              $page
      * @param Fields            $fields
      * @param Sorting           $sorting
@@ -74,7 +74,7 @@ class ListResource
      * @param array             $filters
      */
     public function __construct(
-        JsonApiSerializer $serializer,
+        Serializer $serializer,
         Page $page,
         Fields $fields,
         Sorting $sorting,
