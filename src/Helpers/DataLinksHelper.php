@@ -80,7 +80,7 @@ class DataLinksHelper
      *
      * @return array
      */
-    public static function setResponseDataRelationship(array &$mappings, array &$array, array $parent)
+    public static function setResponseDataRelationship(array &$mappings, array &$array, array $parent, string $attributesCase)
     {
         $data = [JsonApiTransformer::RELATIONSHIPS_KEY => []];
 
@@ -109,7 +109,10 @@ class DataLinksHelper
                                     $href = \str_replace($idProperties, $idValues, $selfLink);
                                     if ($selfLink != $href) {
                                         $propertyNameKey = DataAttributesHelper::transformToValidMemberName($propertyName);
-                                        $propertyNameKey = self::camelCaseToUnderscore($propertyNameKey);
+
+                                        if ($attributesCase == 'snake_case') {
+                                            $propertyNameKey = RecursiveFormatterHelper::camelCaseToUnderscore($propertyNameKey);
+                                        }
 
                                         $newData[JsonApiTransformer::RELATIONSHIPS_KEY][$propertyNameKey][JsonApiTransformer::LINKS_KEY][JsonApiTransformer::SELF_LINK][JsonApiTransformer::LINKS_HREF] = $href;
                                     }
@@ -119,7 +122,9 @@ class DataLinksHelper
 
                         if (!empty($newData[JsonApiTransformer::RELATIONSHIPS_KEY][$propertyName])) {
                             $propertyNameKey = DataAttributesHelper::transformToValidMemberName($propertyName);
-                            $propertyNameKey = self::camelCaseToUnderscore($propertyNameKey);
+                            if ($attributesCase == 'snake_case') {
+                                $propertyNameKey = RecursiveFormatterHelper::camelCaseToUnderscore($propertyNameKey);
+                            }
 
                             if (!empty($d[Serializer::CLASS_IDENTIFIER_KEY])) {
                                 $type = $d[Serializer::CLASS_IDENTIFIER_KEY];
